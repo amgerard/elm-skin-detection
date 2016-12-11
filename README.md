@@ -2,7 +2,7 @@
 Using SLIC SuperPixels and Extreme Learning Machines (ELM) for Skin Detection.
 
 URL:
-http://138.197.12.193
+http://192.241.144.178/bd/
 
 1. Run '. setup_env.sh' to setup the virtual env
 2. Saving transformed SuperPixels (optional):

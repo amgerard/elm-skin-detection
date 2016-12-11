@@ -1,1 +1,1 @@
-Webpage for uploading an image and displaying the results skin mask.
+Webpage for uploading an image and displaying the resulting skin mask.
