@@ -28,7 +28,7 @@ class SuperPxlTransform(ITransform):
         self.y_stats = np.concatenate(y_stats, axis=0)
 
     def get_im_labels(self,im):
-        return slic(im, n_segments = 300, sigma = 1.0, compactness = 30.0) # 500, 5
+        return slic(im, n_segments = 300, sigma = 1.0) #  compactness = 30.0) # 500, 5
 
     def im_superpixels(self,pair):
         im = pair[0]
@@ -57,8 +57,8 @@ class SuperPxlTransform(ITransform):
             np.mean(seg[:,2]), 10*np.std(seg[:,2]), np.median(seg[:,2]),
             np.min(seg[:,0]), np.min(seg[:,1]), np.min(seg[:,2]),
             np.max(seg[:,0]), np.max(seg[:,1]), np.max(seg[:,2]), 
-            (stats.skew(seg[:,0])+50)/100.0,(stats.skew(seg[:,1])+50)/100.0,(stats.skew(seg[:,2])+50)/100.0, 
-            seg.shape[0]/total, entrpy/7.0, entrpy_sd/3.0])
+            # (stats.skew(seg[:,0])+50)/100.0,(stats.skew(seg[:,1])+50)/100.0,(stats.skew(seg[:,2])+50)/100.0, # skew
+            seg.shape[0]/total, entrpy/7.0, entrpy_sd]) # /3.0
     
     def im_mask(self,pair):
         im_labels = pair[0]

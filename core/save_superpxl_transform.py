@@ -19,6 +19,18 @@ def transformImage(pair):
     y_train = train.y
     return X_train,y_train,train.y_stats
 
+def transformImageCollection(images, masks):
+    pl = ThreadPool(16)
+    results = pl.map(transformImage, zip(images, masks))
+
+    X = np.concatenate([x[0] for x in results])
+    y = np.concatenate([x[1] for x in results])
+    y_stats = np.concatenate([x[2] for x in results])
+    return X, y, y_stats
+
+def get_image_collection(path):
+    return io.ImageCollection(path)
+
 if __name__ == '__main__':
     print 'load train data'
 
