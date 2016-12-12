@@ -26,4 +26,4 @@ And
 
 I still can’t access the Skin_test directory, so I’m not sure if this path is correct, or if the masks are in a subfolder of that directory. You can pass the paths to the test images and test masks into run_test.sh like so:
 
-    . run_test.sh /Shared/bdagroup3/Original/test/*.jpg /Shared/bdagroup3/Skin_test/*.bmp
+    . run_test.sh /Shared/bdagroup3/Original/test/ /Shared/bdagroup3/Skin_test/
