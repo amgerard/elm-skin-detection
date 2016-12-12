@@ -52,13 +52,13 @@ class SuperPxlTransform(ITransform):
         return [np.mean(im[idxs[:,0],idxs[:,1]]),np.std(im[idxs[:,0],idxs[:,1]])]
 
     def seg_2_stats(self, seg, total, entrpy, entrpy_sd):
-        return np.array([np.mean(seg[:,0]), 10*np.std(seg[:,0]), np.median(seg[:,0]),
-            np.mean(seg[:,1]), 10*np.std(seg[:,1]), np.median(seg[:,1]),
-            np.mean(seg[:,2]), 10*np.std(seg[:,2]), np.median(seg[:,2]),
+        return np.array([np.mean(seg[:,0]), np.std(seg[:,0]), np.median(seg[:,0]),
+            np.mean(seg[:,1]), np.std(seg[:,1]), np.median(seg[:,1]),
+            np.mean(seg[:,2]), np.std(seg[:,2]), np.median(seg[:,2]),
             np.min(seg[:,0]), np.min(seg[:,1]), np.min(seg[:,2]),
             np.max(seg[:,0]), np.max(seg[:,1]), np.max(seg[:,2]), 
             # (stats.skew(seg[:,0])+50)/100.0,(stats.skew(seg[:,1])+50)/100.0,(stats.skew(seg[:,2])+50)/100.0, # skew
-            seg.shape[0]/total, entrpy/7.0, entrpy_sd]) # /3.0
+            seg.shape[0]/total, entrpy/7.0, entrpy_sd/7.0]) # /3.0
     
     def im_mask(self,pair):
         im_labels = pair[0]

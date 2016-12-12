@@ -11,6 +11,7 @@ if [ $# -eq 2 ]
 fi
 
 echo $imagePath
+echo $maskPath
 echo setup environment
 . setup_env.sh
 

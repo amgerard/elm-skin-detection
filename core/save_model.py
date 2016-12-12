@@ -18,7 +18,7 @@ def predictY(ELM, train):
     return predict
 
 # same transformed data
-path = '../../results/_300s_1sig_entropy/'
+path = '../../results/_300s_1sig_final/'
 X = np.loadtxt(path + "X_train_and_val.csv", delimiter=",")
 y = np.loadtxt(path + "y_train_and_val.csv", delimiter=",").astype(int)
 
@@ -30,13 +30,13 @@ ELM.fit(X, y)
 
 print 'b'
 
-with open(path + 'elm_train_and_val.pkl', 'wb') as output:
+with open('elm/elm_train_and_val.pkl', 'wb') as output:
     pickle.dump(ELM,output,pickle.HIGHEST_PROTOCOL)
 
 # predict training set
-prediction = predictY(ELM,X)
+# prediction = predictY(ELM,X)
 
-print 'train accuracy: ' + str(accuracy_score(y_train, prediction))
+# print 'train accuracy: ' + str(accuracy_score(y_train, prediction))
 
 prediction = predictY(ELM,X_test)
 

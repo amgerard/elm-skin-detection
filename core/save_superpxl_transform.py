@@ -77,7 +77,7 @@ if __name__ == '__main__':
     print 'done, transforming test data: ' + str(time.time()-start)
 
     # same transformed data
-    path = '' # '../../results/_300s_1sig_skew_30compact/'
+    path = '../../results/_300s_1sig_final/'
     np.savetxt(path + "X_train.csv", X_train, delimiter=",")
     np.savetxt(path + "y_train.csv", y_train, delimiter=",")
     np.savetxt(path + "X_test.csv", X_test, delimiter=",")

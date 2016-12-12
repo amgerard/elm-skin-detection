@@ -37,10 +37,10 @@ def print_results(y_actual, y_prediction):
 
 if __name__ == '__main__':
 	# same transformed data
-	path = '../../results/_300s_1sig_entropy/'
+	path = '../../results/_300s_1sig_final/'
 	# path = '../../results/_300s_1sig_skew_30compact_copy/'
-	X_train = np.loadtxt(path + "X_train.csv", delimiter=",")
-	y_train = np.loadtxt(path + "y_train.csv", delimiter=",").astype(int)
+	X_train = np.loadtxt(path + "X_train_and_val.csv", delimiter=",")
+	y_train = np.loadtxt(path + "y_train_and_val.csv", delimiter=",").astype(int)
 	X_test = np.loadtxt(path + "X_test.csv", delimiter=",")
 	y_test = np.loadtxt(path + "y_test.csv", delimiter=",").astype(int)
 

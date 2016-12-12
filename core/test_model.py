@@ -26,46 +26,54 @@ def transformImage2(pair):
 	return X_train,y_train,train.y_stats
 
 if __name__ == '__main__':
-	
-	elmPkl = 'core/elm/elm_train_and_val.pkl' # sys.argv[1]
-	origPath = '../../Original/test/*.jpg' # sys.argv[1]
-	skinPath = '../../Skin_test/test/*.bmp' # sys.argv[1]
 
-	test_images = io.ImageCollection(origPath)
-	# test_masks = io.ImageCollection(skinPath)
-	test_masks = [np.zeros(x.shape) for x in test_images]
+    elmPkl = 'core/elm/elm_train_and_val.pkl' # sys.argv[1]
+    elmPkl = 'elm/elm_train_and_val.pkl' # sys.argv[1]
+# elmPkl = 'elm/elm.pkl' # sys.argv[1]
+    origPath = '../../../Original/test/*.jpg' # sys.argv[1]
+    skinPath = '../../../Skin_test/*.bmp' # sys.argv[1]
+#skinPath = '../../../Skin/val/*.bmp' # sys.argv[1]
 
-	print len(test_images), len(test_masks)
+    if len(sys.argv) > 1:
+        origPath = sys.argv[1]
+    if len(sys.argv) > 2:
+        skinPath = sys.argv[2]
 
-	start = time.time()
-	
-	# get ELM model
-	ELM = getModel(elmPkl)
+    test_images = io.ImageCollection(origPath)
+# test_masks = io.ImageCollection(skinPath)
+    test_masks = [np.zeros(x.shape) for x in test_images]
 
-	print 'a'
+    print len(test_images), len(test_masks)
 
-	#testTransform = SuperPxlTransform(test_images, test_masks)	
-	#testTransform.transform()
-	#X_test = testTransform.X
-	#y_test = testTransform.y
+    start = time.time()
 
-	# X_test, y_test, _ = transformImageCollection2(test_images, test_masks)
+# get ELM model
+    ELM = getModel(elmPkl)
 
-	pl = ThreadPool(16)
-        results = pl.map(transformImage2, zip(test_images, test_masks))
+    print 'a'
 
-        X_test = np.concatenate([x[0] for x in results])
-        y_test = np.concatenate([x[1] for x in results])
-        y_stats = np.concatenate([x[2] for x in results])
+#testTransform = SuperPxlTransform(test_images, test_masks)	
+#testTransform.transform()
+#X_test = testTransform.X
+#y_test = testTransform.y
 
-	print 'b', time.time() - start
-	print X_test.shape, y_test.shape
+# X_test, y_test, _ = transformImageCollection2(test_images, test_masks)
 
-	# predict skin
-	pred = predictY(ELM, X_test)
+    pl = ThreadPool(16)
+    results = pl.map(transformImage2, zip(test_images, test_masks))
 
-	y_test[0] = 1
-	pred[0] = 1
-	print 'c', time.time() - start
-	print np.bincount(pred.astype(int))
-	print_results(y_test, pred)
+    X_test = np.concatenate([x[0] for x in results])
+    y_test = np.concatenate([x[1] for x in results])
+    y_test = np.zeros(X_test.shape[0])
+    y_test[0:100] = 1
+    y_stats = np.concatenate([x[2] for x in results])
+
+    print 'b', time.time() - start
+    print X_test.shape, y_test.shape
+
+# predict skin
+    pred = predictY(ELM, X_test)
+
+    print 'c', time.time() - start
+    print np.bincount(pred.astype(int))
+    print_results(y_test, pred)

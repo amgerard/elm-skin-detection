@@ -4,9 +4,26 @@ Using SLIC SuperPixels and Extreme Learning Machines (ELM) for Skin Detection.
 URL:
 http://192.241.144.178/bd/
 
-1. Run '. setup_env.sh' to setup the virtual env
-2. Saving transformed SuperPixels (optional):
-- (Note paths to data are hardcoded, but can be passed in as arguments)
-- Run 'python core/save_superpxls_transformed.py'
-3. Run 'python core/print_superpxl_results.py' to print out metrics by superpxls
-4. Run 'python core/verify_model_on_pxls.py' to save pixel-level results, for each image
+Testing Model with Test Dataset:
+
+The code is located in the following folder on the cluster:
+
+/Shared/bdagroup3/Fall2016/elm-skin-detection
+
+Which contains a bash script ‘run_test.sh’ that will setup the environment, load the model and test data, run the test and print the results. Make sure to run using the source command or . command:
+
+    . /Shared/bdagroup3/Fall2016/elm-skin-detection/run_test.sh
+
+NOTE
+
+The path to the test images and test masks are hardcoded in the scripts to:
+
+    /Shared/bdagroup3/Original/test
+
+And
+
+    /Shared/bdagroup3/Skin_test
+
+I still can’t access the Skin_test directory, so I’m not sure if this path is correct, or if the masks are in a subfolder of that directory. You can pass the paths to the test images and test masks into run_test.sh like so:
+
+    . run_test.sh /Shared/bdagroup3/Original/test /Shared/bdagroup3/Skin_test
