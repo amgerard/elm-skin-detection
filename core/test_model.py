@@ -35,14 +35,20 @@ if __name__ == '__main__':
 #skinPath = '../../../Skin/val/*.bmp' # sys.argv[1]
 
     if len(sys.argv) > 1:
-        origPath = sys.argv[1]
+        origPath = sys.argv[1] + '*.jpg'
     if len(sys.argv) > 2:
-        skinPath = sys.argv[2]
+        skinPath = sys.argv[2] + '*.bmp'
 
     print origPath, skinPath
 
-    test_images = io.ImageCollection(origPath)
-    test_masks = io.ImageCollection(skinPath)
+    test_images = []
+    test_masks = []
+    try:
+        test_images = io.ImageCollection(origPath)
+        test_masks = io.ImageCollection(skinPath)
+    except:
+        print 'error loading test masks'
+
     no_masks_found = False
     if (len(test_masks) == 0):
         no_masks_found = True
