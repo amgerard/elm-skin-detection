@@ -1,5 +1,16 @@
 #!/bin/bash          
 
+imagePath=/Shared/bdagroup3/Fall2016/Original/test/*.jpg
+maskPath=/Shared/bdagroup3/Fall2016/Skin_test/test/*.bmp
+
+if [ $# -eq 2 ]
+  then
+    echo "2 arguments supplied"
+    imagePath=$1
+    maskPath=$2
+fi
+
+echo $imagePath
 echo setup environment
 . setup_env.sh
 
@@ -7,6 +18,6 @@ echo setup environment
 
 echo testing model on test dataset
 
-python core/test_model.py
+python core/test_model.py $imagePath $maskPath
 
 echo done
