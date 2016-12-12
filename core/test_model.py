@@ -64,6 +64,8 @@ if __name__ == '__main__':
 	# predict skin
 	pred = predictY(ELM, X_test)
 
+	y_test[0] = 1
+	pred[0] = 1
 	print 'c', time.time() - start
-	print_results(y_test, pred)
 	print np.bincount(pred.astype(int))
+	print_results(y_test, pred)

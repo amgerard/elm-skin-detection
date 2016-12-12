@@ -77,7 +77,7 @@ if __name__ == '__main__':
     print 'done, transforming test data: ' + str(time.time()-start)
 
     # same transformed data
-    path = '../../results/_300s_1sig_skew_30compact/'
+    path = '' # '../../results/_300s_1sig_skew_30compact/'
     np.savetxt(path + "X_train.csv", X_train, delimiter=",")
     np.savetxt(path + "y_train.csv", y_train, delimiter=",")
     np.savetxt(path + "X_test.csv", X_test, delimiter=",")
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     np.savetxt(path + "y_test_stats.csv", y_test_stats, delimiter=",")
     np.savetxt(path + "y_train_stats.csv", y_train_stats, delimiter=",")
 
-    print 'done saving transformed data'
+    print 'done saving transformed data' + str(time.time()-start)
 
     ELM = ELMRegressor(1300)
     ELM.fit(X_train, y_train)
