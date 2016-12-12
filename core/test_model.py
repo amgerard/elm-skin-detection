@@ -28,7 +28,7 @@ def transformImage2(pair):
 if __name__ == '__main__':
 
     elmPkl = 'core/elm/elm_train_and_val.pkl' # sys.argv[1]
-    elmPkl = 'elm/elm_train_and_val.pkl' # sys.argv[1]
+    #elmPkl = 'elm/elm_train_and_val.pkl' # sys.argv[1]
 # elmPkl = 'elm/elm.pkl' # sys.argv[1]
     origPath = '../../../Original/test/*.jpg' # sys.argv[1]
     skinPath = '../../../Skin_test/*.bmp' # sys.argv[1]
@@ -39,18 +39,24 @@ if __name__ == '__main__':
     if len(sys.argv) > 2:
         skinPath = sys.argv[2]
 
+    print origPath, skinPath
+
     test_images = io.ImageCollection(origPath)
-# test_masks = io.ImageCollection(skinPath)
-    test_masks = [np.zeros(x.shape) for x in test_images]
+    test_masks = io.ImageCollection(skinPath)
+    no_masks_found = False
+    if (len(test_masks) == 0):
+        no_masks_found = True
+        test_masks = [np.zeros(x.shape) for x in test_images]
 
     print len(test_images), len(test_masks)
+    print 'loading model...'
 
     start = time.time()
 
 # get ELM model
     ELM = getModel(elmPkl)
 
-    print 'a'
+    print 'transforming all test images (in parallel)...'
 
 #testTransform = SuperPxlTransform(test_images, test_masks)	
 #testTransform.transform()
@@ -63,17 +69,21 @@ if __name__ == '__main__':
     results = pl.map(transformImage2, zip(test_images, test_masks))
 
     X_test = np.concatenate([x[0] for x in results])
-    y_test = np.concatenate([x[1] for x in results])
-    y_test = np.zeros(X_test.shape[0])
-    y_test[0:100] = 1
-    y_stats = np.concatenate([x[2] for x in results])
+    y_test = np.zeros(X_test.shape[0]) # in case permissions to Skin_test are not granted
+    y_test[0:100] = 1 # AUC doesn't like all 0's
+    if no_masks_found == False:
+        y_test = np.concatenate([x[1] for x in results])
+    # y_stats = np.concatenate([x[2] for x in results])
 
-    print 'b', time.time() - start
+    print 'done transforming: ', time.time() - start
     print X_test.shape, y_test.shape
 
 # predict skin
+    print 'predicting skin pixels...'
     pred = predictY(ELM, X_test)
 
-    print 'c', time.time() - start
+    print 'done predicting: ', time.time() - start
     print np.bincount(pred.astype(int))
+    print ''
+    print 'results:'
     print_results(y_test, pred)
