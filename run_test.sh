@@ -1,7 +1,7 @@
 #!/bin/bash          
 
-imagePath=/Shared/bdagroup3/Fall2016/Original/test/*.jpg
-maskPath=/Shared/bdagroup3/Fall2016/Skin_test/test/*.bmp
+imagePath=/Shared/bdagroup3/Fall2016/Original/test/
+maskPath=/Shared/bdagroup3/Fall2016/Skin_test/test/
 
 if [ $# -eq 2 ]
   then
