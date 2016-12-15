@@ -35,9 +35,11 @@ if __name__ == '__main__':
 #skinPath = '../../../Skin/val/*.bmp' # sys.argv[1]
 
     if len(sys.argv) > 1:
-        origPath = sys.argv[1] + '*.jpg'
+        wild = '*.jpg' if sys.argv[1].endswith('/') else '/*.jpg'
+        origPath = sys.argv[1] + wild
     if len(sys.argv) > 2:
-        skinPath = sys.argv[2] + '*.bmp'
+        wild = '*.bmp' if sys.argv[2].endswith('/') else '/*.bmp'
+        skinPath = sys.argv[2] + wild
 
     print origPath, skinPath
 
