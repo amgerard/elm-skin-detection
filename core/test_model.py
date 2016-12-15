@@ -53,6 +53,9 @@ if __name__ == '__main__':
     if (len(test_masks) == 0):
         no_masks_found = True
         test_masks = [np.zeros(x.shape) for x in test_images]
+        print 'ERROR ERROR ERROR ERROR ERROR'
+        print 'NO MASK IMAGES FOUND, USING ALL 0 FOR MASKS'
+        print 'ERROR ERROR ERROR ERROR ERROR'
 
     print len(test_images), len(test_masks)
     print 'loading model...'
